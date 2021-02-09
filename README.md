@@ -1,14 +1,14 @@
 # SIF scripts for Sitecore to autoinstall the Sitecore Publishing Service (SPS) and corresponding Publishing Module.
 
-This projects contains 2 Powershell scripts that both use the Sitecore Install Framework (SIF) to auto install the Publishing Service &amp; auto install the Publishing Module on top of the Content Management instance. The Publishing Service allows for high-performance publishing in large scale Sitecore setups.
+This projects contains 2 Powershell scripts that both use the Sitecore Install Framework (SIF) to **auto install the Publishing Service** &amp; **auto install the Publishing Module** on top of the ContentManagement instance or StandAlone instance. The Publishing Service allows for high-performance publishing in large scale Sitecore setups.
 
 # Prerequisites
 
-Read the readme file in the SitecorePackages directory! Copy over the Publishing Service Sitecore package and the specific Publishing Service module package to the SitecorePackages folder.
+**Read the readme file in the SitecorePackages directory!** Copy over the Publishing Service Sitecore package (4.3.0) and the specific Publishing Service module package (for your Sitecore version) to the SitecorePackages folder. See https://kb.sitecore.net/articles/761308 for the Sitecore Publishing Service compatibility table.
 
 ## Adjust necessary parameters
 
-Open up the parameters.ps1 file and adjust the necessary $webroot, $postfix & $SqlServer values if necessary.
+Open up the parameters.ps1 file and adjust the necessary $Webroot, $Postfix & $SqlServer values if necessary.
 
 # How to install?
 
