@@ -17,21 +17,21 @@ Open up the parameters.ps1 file and adjust the necessary $Webroot, $Postfix & $S
 Open up a Windows Powershell window in admin mode and run the following:
 
 ```powershell
-.\InstallPublishingService.ps1 -Version "10.0.1" -Prefix "sc10"
+.\InstallPublishingService.ps1 -Version "10.1.0" -Prefix "sc10_1"
 ```
 
-This will install a new Sitecore Publishing Service instance. A new site will be created called: **sc10.publishingservice.dev.local**. It will be running on port 5000.
+This will install a new Sitecore Publishing Service instance. A new site will be created called: **sc10_1.publishingservice.dev.local**. It will be running on port 5000.
 
 Once the service is installed you can verify that it is working by hitting the publishing api using:
 
-    http://sc10.publishingservice.dev.local:5000/api/publishing/operations/status
+    http://sc10_1.publishingservice.dev.local:5000/api/publishing/operations/status
 
 A response of "Status" : 0 indicates the service is working as expected and ready for connections.
 
 _In case of an uninstall you want to do, you can run the -Uninstall option._
 
 ```powershell
-.\InstallPublishingService.ps1 -Uninstall -Version "10.0.1" -Prefix "sc10"
+.\InstallPublishingService.ps1 -Uninstall -Version "10.1.0" -Prefix "sc10_1"
 ```
 
 ## Installing the Publishing Service Module on the Sitecore instance
@@ -41,7 +41,7 @@ Now that we have the Publishing Service installed, the Publishing Module now nee
 Open up a Powershell prompt in admin mode and run the following:
 
 ```Powershell
-.\InstallPublishingModule.ps1 -Version "10.0.1" -Prefix "sc10"
+.\InstallPublishingModule.ps1 -Version "10.1.0" -Prefix "sc10_1"
 ```
 
 To verify everything is working correctly, from the Sitecore launchpad on your CM instance, select the 'Publishing' application. The dashboard will display an error if Sitecore is not able to connect to the publishing service. If no errors are displayed, publishing can be initiated from the dashboard, or via the other standard publishing methods within Sitecore.
@@ -52,6 +52,7 @@ The following Sitecore Experience Platform versions are supported with these scr
 
 ### Sitecore 10
 
+- **Sitecore Experience Platform 10.1.0 (February 2021)** - _Uses SPS 5.0.0 & Module 10.1.0_
 - **Sitecore Experience Platform 10.0.1 (December 2020)** - _Uses SPS 4.3.0 & Module 10.0.0.0_
 - **Sitecore Experience Platform 10.0.0 (August 2020)** - _Uses SPS 4.3.0 & Module 10.0.0.0_
 
