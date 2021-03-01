@@ -4,7 +4,7 @@ This projects contains 2 Powershell scripts that both use the Sitecore Install F
 
 # Prerequisites
 
-**Read the readme file in the SitecorePackages directory!** Copy over the Publishing Service Sitecore package (4.3.0) and the specific Publishing Service module package (for your Sitecore version) to the SitecorePackages folder. See https://kb.sitecore.net/articles/761308 for the Sitecore Publishing Service compatibility table.
+**Read the readme file in the SitecorePackages directory!** Copy over the Publishing Service Sitecore package (4.3.0 or 5.0.0) and the specific Publishing Service module package (for your Sitecore version) to the SitecorePackages folder. See https://kb.sitecore.net/articles/761308 for the Sitecore Publishing Service compatibility table.
 
 ## Adjust necessary parameters
 
