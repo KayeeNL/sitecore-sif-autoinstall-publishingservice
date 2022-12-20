@@ -2,7 +2,7 @@ param(
     [switch] $UpdateSchemasOnly,
     [switch] $Uninstall,
     [string] $Prefix = "sc10",
-    [string] $Version = "10.0.1"
+    [string] $Version = "10.2.0"
 )
 . $PSScriptRoot\parameters.ps1
 
