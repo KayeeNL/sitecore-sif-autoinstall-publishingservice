@@ -348,4 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Ignore the contents of the SitecorePackages folder (except for the readme, which is there)
 SitecorePackages/
