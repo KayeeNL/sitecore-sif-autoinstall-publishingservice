@@ -36,6 +36,7 @@ $PublishingUrl = "http://$($PublishingServiceInstance):$($PublishingServicePort)
 $PublishingServiceConfig = @{
     PackagePath    = Join-Path -Path $PackagesFolder -ChildPath $ServicePackages[$Version]
     ContentPath    = Join-Path -Path $WebRoot -ChildPath $PublishingServiceInstance
+    SitecoreLicensePath = Join-Path -Path $PackagesFolder -ChildPath "license.xml"
     CheckStatusUrl = "$($PublishingUrl)api/publishing/operations/status"
 }
 
