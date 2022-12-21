@@ -1,14 +1,22 @@
-# SIF scripts for Sitecore to autoinstall the Sitecore Publishing Service (SPS) and corresponding Publishing Module.
+# SIF scripts for Sitecore to autoinstall the Sitecore Publishing Service (SPS) and the corresponding Publishing Module.
 
-This projects contains 2 Powershell scripts that both use the Sitecore Install Framework (SIF) to **auto install the Publishing Service** &amp; **auto install the Publishing Module** on top of the ContentManagement instance or StandAlone instance. The Publishing Service allows for high-performance publishing in large scale Sitecore setups.
+The Publishing Service allows for high-performance publishing in large scale Sitecore setups.
+
+This project **contains 2 Powershell scripts** that both use the Sitecore Install Framework (SIF) to **auto install the Publishing Service** &amp; **auto install the Publishing Module** on top of the ContentManagement instance or StandAlone instance through the use of Powershell.
 
 # Prerequisites
 
-**Read the readme file in the SitecorePackages directory!** Copy over the Publishing Service Sitecore package *(4.3.0, 5.0.0, 6.0.0)* and the specific Publishing Service module package (for your Sitecore version) to the **SitecorePackages folder**. See https://kb.sitecore.net/articles/761308 for the Sitecore Publishing Service compatibility table.
+**=== Read the readme.txt file in the SitecorePackages directory! ===** 
+
+Copy over the Publishing Service Sitecore package *(4.3.0, 5.0.0, 6.0.0)* and the specific Publishing Service module package *(for your Sitecore version)* to the **SitecorePackages folder**. 
+
+See https://kb.sitecore.net/articles/761308 for the Sitecore Publishing Service compatibility table.
+
+**UPDATE:** From SPS version 6.0.0 *(for 10.2)* on you need a valid Sitecore license when using the Publishing Service. **Copy over a valid Sitecore license to the SitecorePackage folder** and the script will take care of the correct install.
 
 ## Adjust necessary parameters
 
-Open up the parameters.ps1 file and adjust the necessary $Webroot, $Postfix & $SqlServer values if necessary.
+Open up the **parameters.ps1** file and adjust the necessary ***Webroot***, ***Postfix*** & ***SqlServer*** variable values if necessary!
 
 # How to install?
 
@@ -26,9 +34,9 @@ Once the service is installed you can verify that it is working by hitting the p
 
     http://sc10_2.publishingservice.dev.local:5000/api/publishing/operations/status
 
-A response of "Status" : 0 indicates the service is working as expected and ready for connections.
+A response of ***{"status":0}*** indicates the service is working as expected and ready for connections.
 
-_In case of an uninstall you want to do, you can run the -Uninstall option._
+In case you want to do an **uninstall of the Publishing Service instance**, you can run the ***-Uninstall*** option.
 
 ```powershell
 .\InstallPublishingService.ps1 -Uninstall -Version "10.2.0" -Prefix "sc10_2"
@@ -36,7 +44,7 @@ _In case of an uninstall you want to do, you can run the -Uninstall option._
 
 ## Installing the Publishing Service Module on the Sitecore instance
 
-Now that we have the Publishing Service installed, the Publishing Module now needs installed in the Sitecore instance. To help with that we've also automated this through the Sitecore Install Framework.
+Now that we have the Publishing Service installed, the Publishing Module now needs installed in the Sitecore instance. To help with that we've also automated this through the Sitecore Install Framework (SIF).
 
 Open up a Powershell prompt in admin mode and run the following:
 
@@ -44,7 +52,7 @@ Open up a Powershell prompt in admin mode and run the following:
 .\InstallPublishingModule.ps1 -Version "10.2.0" -Prefix "sc10_2"
 ```
 
-To verify everything is working correctly, from the Sitecore launchpad on your CM instance, select the 'Publishing' application. The dashboard will display an error if Sitecore is not able to connect to the publishing service. If no errors are displayed, publishing can be initiated from the dashboard, or via the other standard publishing methods within Sitecore.
+To verify everything is working correctly, from the Sitecore launchpad on your CM instance, select the **'Publishing'** application. The dashboard will display an error if Sitecore is not able to connect to the publishing service. If no errors are displayed, publishing can be initiated from the dashboard, or via the other standard publishing methods within Sitecore.
 
 # Supported Sitecore versions
 
