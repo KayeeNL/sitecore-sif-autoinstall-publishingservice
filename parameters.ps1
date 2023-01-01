@@ -4,6 +4,7 @@ $ConfigsRoot = Join-Path $PSScriptRoot Configs
 $WebRoot = "c:\inetpub\wwwroot"
 
 $ModulePackages = @{
+    "10.3.0" = "Sitecore Publishing Module 10.3.0 rev. 00663.zip"
     "10.2.0" = "Sitecore Publishing Module 10.2.0 rev. 00631.zip"
     "10.1.0" = "Sitecore Publishing Module 10.1.0 rev. 00585.zip"
     "10.0.1" = "Sitecore Publishing Module 10.0.0.0 rev. r00568.2697.zip"
@@ -15,6 +16,7 @@ $ModulePackages = @{
 }
 
 $ServicePackages = @{
+    "10.3.0" = "Sitecore Publishing Service 7.0.20 rev. 0020-net6.0.zip"
     "10.2.0" = "Sitecore Publishing Service 6.0.0-netcoreapp3.1.zip"
     "10.1.0" = "Sitecore Publishing Service 5.0.0-win-x64.zip"
     "10.0.1" = "Sitecore Publishing Service 4.3.0-win-x64.zip"
