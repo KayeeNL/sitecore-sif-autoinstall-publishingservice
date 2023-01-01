@@ -2,7 +2,7 @@ param(
     [switch] $UpdateSchemasOnly,
     [switch] $Uninstall,
     [string] $Prefix = "sc10",
-    [string] $Version = "10.0.1"
+    [string] $Version = "10.2.0"
 )
 . $PSScriptRoot\parameters.ps1
 
@@ -10,11 +10,11 @@ $ErrorActionPreference = 'Stop'
 
 $ConnectionStringTemplate = "user id=$($SqlServer.SqlAdminUser);password=$($SqlServer.SqlAdminPassword);data source=$($SqlServer.Address);database={0};MultipleActiveResultSets=True;"
 
-Function Extract-PublishingServiceContent {
-    Write-Host "Extracting Publishing Package....." -ForegroundColor Green
-	
+Function Copy-PublishingServiceContent {
+    Write-Host "Start Extracting Publishing Service Package....." -ForegroundColor Green
+
     If (!(Test-Path -Path $PublishingServiceConfig.PackagePath )) {
-        throw "The Publishing Service package must be downloaded"
+        throw "Make sure the Publishing Service package exist at $($PublishingServiceConfig.PackagePath)"
     }
 	
     If (!(Test-Path -Path $PublishingServiceConfig.ContentPath)) {
@@ -22,6 +22,26 @@ Function Extract-PublishingServiceContent {
     }
 
     Expand-Archive -Path $PublishingServiceConfig.PackagePath -DestinationPath $PublishingServiceConfig.ContentPath
+
+    Write-Host "Extracted Publishing Service Package content to $($PublishingServiceConfig.ContentPath)....." -ForegroundColor Green
+}
+
+Function Copy-SitecoreLicense {
+    Write-Host "Copying Sitecore License....." -ForegroundColor Green
+	
+    If (!(Test-Path -Path $PublishingServiceConfig.SitecoreLicensePath )) {
+        throw "Please copy a valid Sitecore license to the SitecorePackages folder"
+    }
+
+    $SitecoreRuntimePath = Join-Path -Path $PublishingServiceConfig.ContentPath -ChildPath "sitecoreruntime"
+
+    If (!(Test-Path -Path $SitecoreRuntimePath)) {
+        New-Item -Path $SitecoreRuntimePath -ItemType Directory -Force
+        Write-Host "Created sitecoreruntime folder at $($SitecoreRuntimePath)....." -ForegroundColor Green
+    }
+    Copy-Item -Path $PublishingServiceConfig.SitecoreLicensePath -Destination $SitecoreRuntimePath
+
+    Write-Host "Copied Sitecore license file to $($SitecoreRuntimePath)....." -ForegroundColor Green
 }
 
 Function Get-PublishingHostTool {
@@ -49,7 +69,7 @@ Function Update-Schemas {
     & $ExeFile schema upgrade --force
 }
 
-Function Create-PublishingServiceSite {
+Function New-PublishingServiceSite {
     & $ExeFile iis install -s "$($PublishingServiceInstance)" -a "$($PublishingServiceInstance)" -p $PublishingServicePort --force
 }
 
@@ -62,7 +82,7 @@ Function Update-HostsFile {
     }
 }
 
-Function Verify-PublishingService {
+Function Invoke-CheckPublishingService {
     $PublishingServiceStatusRequest = [System.Net.WebRequest]::Create($PublishingServiceConfig.CheckStatusUrl)
     $PublishingServiceStatusResponse = $PublishingServiceStatusRequest.GetResponse();
 
@@ -77,8 +97,8 @@ Function Verify-PublishingService {
             
             If ($result -eq '{"status":0}') {
                 Write-Host "Install $($PublishingServiceInstance) successfully" -ForegroundColor Green
+                Write-Host "Go to $($PublishingServiceConfig.CheckStatusUrl) to check the status, {'status':0} means the install was successful" -ForegroundColor Green
             }
-
         }
     }
     finally {
@@ -133,7 +153,13 @@ If (-Not $Uninstall) {
         Write-Host " Installing Publishing Service for: $($SitecoreContentManagementSitename)" -ForegroundColor Green
         Write-Host " Instance: $($PublishingServiceInstance):$($PublishingServicePort)" -ForegroundColor Green
         Write-Host "*******************************************************" -ForegroundColor Yellow
-        Extract-PublishingServiceContent
+        Copy-PublishingServiceContent
+
+        if ($Version -eq "10.2.0") {
+            # The publishing service now uses a license file with the start of 10.2
+            Copy-SitecoreLicense
+        }
+
         $ExeFile = Get-PublishingHostTool
     
         Update-ConnectionString -DatabaseName "core"
@@ -141,9 +167,9 @@ If (-Not $Uninstall) {
         Update-ConnectionString -DatabaseName "web"
         Update-InstanceName
         Update-Schemas
-        Create-PublishingServiceSite
+        New-PublishingServiceSite
         Update-HostsFile
-        Verify-PublishingService
+        Invoke-CheckPublishingService
     }
 }
 Else {

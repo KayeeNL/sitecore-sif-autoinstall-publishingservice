@@ -4,6 +4,7 @@ $ConfigsRoot = Join-Path $PSScriptRoot Configs
 $WebRoot = "c:\inetpub\wwwroot"
 
 $ModulePackages = @{
+    "10.2.0" = "Sitecore Publishing Module 10.2.0 rev. 00631.zip"
     "10.1.0" = "Sitecore Publishing Module 10.1.0 rev. 00585.zip"
     "10.0.1" = "Sitecore Publishing Module 10.0.0.0 rev. r00568.2697.zip"
     "10.0.0" = "Sitecore Publishing Module 10.0.0.0 rev. r00568.2697.zip"
@@ -14,6 +15,7 @@ $ModulePackages = @{
 }
 
 $ServicePackages = @{
+    "10.2.0" = "Sitecore Publishing Service 6.0.0-netcoreapp3.1.zip"
     "10.1.0" = "Sitecore Publishing Service 5.0.0-win-x64.zip"
     "10.0.1" = "Sitecore Publishing Service 4.3.0-win-x64.zip"
     "10.0.0" = "Sitecore Publishing Service 4.3.0-win-x64.zip"
@@ -34,6 +36,7 @@ $PublishingUrl = "http://$($PublishingServiceInstance):$($PublishingServicePort)
 $PublishingServiceConfig = @{
     PackagePath    = Join-Path -Path $PackagesFolder -ChildPath $ServicePackages[$Version]
     ContentPath    = Join-Path -Path $WebRoot -ChildPath $PublishingServiceInstance
+    SitecoreLicensePath = Join-Path -Path $PackagesFolder -ChildPath "license.xml"
     CheckStatusUrl = "$($PublishingUrl)api/publishing/operations/status"
 }
 
