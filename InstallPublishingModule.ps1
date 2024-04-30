@@ -1,6 +1,6 @@
 param(
     [string]$Prefix = "sc10",
-    [string]$Version = "10.3.0"
+    [string]$Version = "10.4.0"
 )
 
 # Bring parameters into scope
