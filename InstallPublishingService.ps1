@@ -2,7 +2,7 @@ param(
     [switch] $UpdateSchemasOnly,
     [switch] $Uninstall,
     [string] $Prefix = "sc10",
-    [string] $Version = "10.3.0"
+    [string] $Version = "10.4.0"
 )
 . $PSScriptRoot\parameters.ps1
 
@@ -155,7 +155,7 @@ If (-Not $Uninstall) {
         Write-Host "*******************************************************" -ForegroundColor Yellow
         Copy-PublishingServiceContent
 
-        if ($Version -eq "10.2.0" -or $Version -eq "10.3.0") {
+        if ($Version -eq "10.2.0" -or $Version -eq "10.3.0" -or $Version -eq "10.4.0") {
             # The publishing service now uses a license file with the start of 10.2
             Copy-SitecoreLicense
         }
